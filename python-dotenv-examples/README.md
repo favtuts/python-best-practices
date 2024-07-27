@@ -41,8 +41,62 @@ $ pipenv shell
 Python 3.10.14
 ```
 
-# Install Python Dotenv
+# Getting Started with Python Dotenv
 
+## Installation python-dotenv library
 ```sh
 (python-dotenv-examples) $ pipenv install python-dotenv
 ```
+
+## Setting up the .env File
+
+```sh
+(python-dotenv-examples) $ touch .env
+```
+
+Example key-value pairs
+```ini
+API_KEY=abcd1234ef56
+DATABASE_URL=mydatabase://123
+SECRET_KEY=secret
+```
+
+# Loading Environment Variables with Python Dotenv
+
+## Basic Setup with load_dotenv()
+
+Create a new Python file named `app.py` 
+```sh
+(python-dotenv-examples) $ touch app.py
+```
+
+with following snippet:
+```python
+import os
+from dotenv import load_dotenv
+
+# Load the stored environment variables
+load_dotenv()
+
+# Get the values
+api_key = os.getenv("API_KEY")
+database_url = os.getenv("DATABASE_URL")
+secret = os.getenv("SECRET_KEY")
+
+# Print the values
+print(f"API_KEY = {api_key}")
+print(f"DATABASE_URL = {database_url}")
+print(f"SECRET = {secret}")
+```
+
+Open this [app.py](app.py) file in VSCode and sellect Python interpreter `python-dotenv-examples-9VBF62Vw`.
+
+Run this file to see the results
+```sh
+(python-dotenv-examples) $ python app.py
+
+API_KEY = abcd1234ef56
+DATABASE_URL = mydatabase://123
+SECRET = secret
+```
+
