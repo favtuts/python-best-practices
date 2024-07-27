@@ -13,3 +13,12 @@ secret = os.getenv("SECRET_KEY")
 print(f"API_KEY = {api_key}")
 print(f"DATABASE_URL = {database_url}")
 print(f"SECRET = {secret}")
+
+
+# Get environment variables as a Dictionary
+ev = dict(os.environ)
+
+# Print the values from dictionary
+print(f"API_KEY = {ev['API_KEY']}")
+print(f"DATABASE_URL = {ev['DATABASE_URL']}")
+print(f"SECRET = {ev['SECRET_KEY']}")

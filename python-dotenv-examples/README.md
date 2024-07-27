@@ -100,3 +100,15 @@ DATABASE_URL = mydatabase://123
 SECRET = secret
 ```
 
+## Loading Environment Variables as a Dictionary
+
+The above example require you are working with many variables. to avoid that, we can load all values into single dictionary, and extract them from that.
+```python
+# Get environment variables as a Dictionary
+ev = dict(os.environ)
+
+# Print the values from dictionary
+print(f"API_KEY = {ev['API_KEY']}")
+print(f"DATABASE_URL = {ev['DATABASE_URL']}")
+print(f"SECRET = {ev['SECRET_KEY']}")
+```
