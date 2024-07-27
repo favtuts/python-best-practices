@@ -216,3 +216,39 @@ You can set new variable
 
 DB_USER=mark123
 ```
+
+# Use .env as application settings
+
+Create new file `gcp.env` to store GCP project settings
+```ini
+# environment variables defined inside a .env file
+GCP_PROJECT_ID=my-project-id
+SERVICE_ACCOUNT_FILE=path/to/serviceAccountCredentials
+STORAGE_BUCKET_NAME=my-super-important-data
+```
+
+By default `load_dotenv` will look for the .env file in the current working directory or any parent directories however you can also specify the path if your particular use case requires it be stored elsewhere. 
+
+Create a `settings.py` file:
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GCP_PROJECT_ID = os.getenv('GCP_PROJECT_ID')
+SERVICE_ACCOUNT_FILE = os.getenv('SERVICE_ACCOUNT_FILE')
+STORAGE_BUCKET_NAME = os.getenv('STORAGE_BUCKET_NAME')
+```
+
+Create a `gcp_app.py` file
+```python
+import settings as gcp_config
+
+print(f"ProjectID  = {gcp_config.GCP_PROJECT_ID}")
+```
+Run to see the results:
+```sh
+(python-dotenv-examples) $ python gcp_app.py 
+ProjectID  = my-project-id
+```
