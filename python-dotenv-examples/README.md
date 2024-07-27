@@ -154,3 +154,34 @@ platform=Linux
 USER = user_prod
 PASS = pass_prod
 ```
+
+# Advanced Python Dotenv Variable Expansions
+
+Python dotenv supports variable expansion, which is a helpful feature when dealing with multiline values or referencing pre-existing environment variables
+```ini
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=database
+DB_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+```
+
+You can now grab only `DB_URL` which will automatically reference the other three environment variables:
+```python
+import os
+from dotenv import load_dotenv
+
+# Load the stored environment variables
+load_dotenv()
+
+# Get the value
+db_url = os.getenv("DB_URL")
+
+# Print the value
+print(f"DB_URL = {db_url}")
+```
+
+This is the output you will see:
+```sh
+(python-dotenv-examples) $ python variable_expansion.py 
+DB_URL = jdbc:postgresql://localhost:5432/database
+```
