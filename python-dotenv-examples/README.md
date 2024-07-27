@@ -252,3 +252,45 @@ Run to see the results:
 (python-dotenv-examples) $ python gcp_app.py 
 ProjectID  = my-project-id
 ```
+
+# Using .env file for Configuration switching
+
+In the `.env` file, add the variable:
+```ini
+DEBUG=True
+```
+
+Create the `switch_configuration.py` file
+```python
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DEBUG = os.environ.get("DEBUG")
+
+if DEBUG=="True":
+    db="Test Database"
+else:
+    db="Production Database"
+
+print(db)
+```
+
+Test for the result
+```sh
+(python-dotenv-examples) $ python switch_configuration.py 
+Test Database
+```
+
+You can change to Production configuration
+```ini
+DEBUG=False
+```
+
+Test for the result
+```sh
+(python-dotenv-examples) $ python switch_configuration.py 
+Production Database
+```
