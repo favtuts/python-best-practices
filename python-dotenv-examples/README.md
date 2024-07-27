@@ -112,3 +112,45 @@ print(f"API_KEY = {ev['API_KEY']}")
 print(f"DATABASE_URL = {ev['DATABASE_URL']}")
 print(f"SECRET = {ev['SECRET_KEY']}")
 ```
+
+# Managing Variables in Different Environments
+
+Add the bellow contents to `.env` file
+```ini
+DEV_DB_USER="user_dev"
+DEV_DB_PASS="pass_dev"
+PROD_DB_USER="user_prod"
+PROD_DB_PASS="pass_prod"
+```
+
+Create new Python file [environments.py](environments.py):
+```python
+import os
+import platform
+from dotenv import load_dotenv
+
+# Detect platform to set the environment
+environ = "PROD" if platform.system().lower() == "linux" else "DEV"
+
+# Load the stored environment variables
+load_dotenv()
+
+# Get the values
+db_user = os.getenv(f"{environ}_DB_USER")
+db_pass = os.getenv(f"{environ}_DB_PASS")
+
+# Print the values
+print(f"USER = {db_user}")
+print(f"PASS = {db_pass}")
+```
+By doing so, you can make a distinction:
+* If Linux, it’s a production environment
+* Else, it’s a development environment
+
+Run this scrip on Linux OS to see the results
+```sh
+(python-dotenv-examples) $ python environments.py 
+platform=Linux
+USER = user_prod
+PASS = pass_prod
+```
