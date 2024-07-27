@@ -185,3 +185,34 @@ This is the output you will see:
 (python-dotenv-examples) $ python variable_expansion.py 
 DB_URL = jdbc:postgresql://localhost:5432/database
 ```
+
+# Using Python Dotenv CLI Interface
+
+```sh
+(python-dotenv-examples) $ dotenv list
+It seems python-dotenv is not installed with cli option. 
+Run pip install "python-dotenv[cli]" to fix this.
+```
+
+Fixed:
+```sh
+(python-dotenv-examples) $ pipenv install "python-dotenv[cli]"
+```
+
+Now you can list all variables
+```sh
+(python-dotenv-examples) $ dotenv list
+API_KEY=abcd1234ef56
+DATABASE_URL=mydatabase://123
+DB_HOST=localhost
+DB_NAME=database
+DB_PORT=5432
+DB_URL=jdbc:postgresql://localhost:5432/database
+```
+
+You can set new variable
+```sh
+(python-dotenv-examples) $ dotenv set DB_USER mark123
+
+DB_USER=mark123
+```
