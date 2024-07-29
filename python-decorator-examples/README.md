@@ -94,3 +94,21 @@ Before
 Hello shekhar
 After
 ```
+
+# Handling arguments in Decorators
+
+One interesting thing to notice here is that when we add our decorator to the function, the name of the function changes to the wrapper. This shows that when we use the decorated function, we are actually using the wrapper function from the decorator.
+
+We will face a error if we try to make default argument or try to pass more than one argument to our decorated function. To solve these kinds of issues we use `*args` and `**kwargs`, they translate to argument and keyword arguments respectively.
+
+Unpacking operators:
+- `*` Expands any variable as List
+- `**` Expands any variable as Dictionary
+
+The `*args` enables us to send any number of arguments to the function and `**kwargs` enables us to pass in any number of keyworded arguments when calling the function.
+
+`"args"` and `"kwargs"` is the general naming convention, You can use any other name following the same `*` and `**` pattern and it will work the same way.
+
+# Using Args and Kwargs in Decorators
+
+
