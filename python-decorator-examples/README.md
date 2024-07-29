@@ -112,3 +112,88 @@ The `*args` enables us to send any number of arguments to the function and `**kw
 # Using Args and Kwargs in Decorators
 
 
+```python
+def before_after(func):
+    def wrapper(*args, **kwargs):
+        print("Before")
+        func(*args, **kwargs)
+        print("After")
+
+    return wrapper
+
+
+@before_after
+def greet(name="Shekhar"):
+    print(f"Hello {name}")
+
+
+greet()
+greet("joey")
+```
+
+Output:
+```sh
+$ python function_decorator_example_04.py 
+Before
+Hello Shekhar
+After
+Before
+Hello joey
+After
+```
+
+
+# Measuring Performance of other functions
+
+Let's see what are some real use cases in which decorators are extremely useful.
+
+Suppose you have many functions in your code and you want to optimise your code. Now instead of writing the code for getting the runtime and memory usage for each function, we can simply write a decorator and apply it to all the functions we want to test.
+
+we are calculating function runtime using `perf_counter` (It's just like a `stopwatch`) and calculating memory usage using `tracemalloc` function
+
+
+```python
+from functools import wraps
+import tracemalloc
+from time import perf_counter 
+
+def measure_performance(func):
+    @wraps(func)  # It is a inbuilt decorator in python
+    # When used, the decorated function name remains the same
+
+    def wrapper(*args, **kwargs):
+        tracemalloc.start()
+        start_time = perf_counter()
+        func(*args, **kwargs)
+        current, peak = tracemalloc.get_traced_memory()
+        finish_time = perf_counter()
+        print(f"Function: {func.__name__}")
+        print(
+            f"Memory usage:\t\t {current / 10**6:.6f} MB \n"
+            f"Peak memory usage:\t {peak / 10**6:.6f} MB "
+        )
+        print(f"Time elapsed is seconds: {finish_time - start_time:.6f}")
+        print(f'{"-"*40}')
+        tracemalloc.stop()
+
+    return wrapper
+
+
+@measure_performance
+def function1():
+    lis = []
+    for a in range(1000000):
+        if a % 2 == 0:
+            lis.append(1)
+        else:
+            lis.append(0)
+
+
+@measure_performance
+def function2():
+    lis = [1 if a % 2 == 0 else 0 for a in range(1000000)]
+
+
+function1()
+function2()
+```
